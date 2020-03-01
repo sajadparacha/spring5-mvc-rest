@@ -1,6 +1,6 @@
 package com.spring5.mvc.rest.bootstrap;
 
-import com.spring5.mvc.rest.model.Category;
+import com.spring5.mvc.rest.domain.Category;
 import com.spring5.mvc.rest.repositories.CategoryRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
