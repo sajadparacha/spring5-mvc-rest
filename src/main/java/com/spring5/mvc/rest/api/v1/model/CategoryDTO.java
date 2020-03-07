@@ -1,4 +1,4 @@
-package com.spring5.mvc.rest.model;
+package com.spring5.mvc.rest.api.v1.model;
 
 import lombok.Builder;
 import lombok.Data;

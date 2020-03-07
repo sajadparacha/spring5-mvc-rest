@@ -2,7 +2,8 @@ package com.spring5.mvc.rest.services;
 
 
 
-import com.spring5.mvc.rest.model.CategoryDTO;
+import com.spring5.mvc.rest.api.v1.model.CategoryDTO;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 

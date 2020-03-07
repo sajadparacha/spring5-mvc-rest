@@ -1,7 +1,8 @@
 package com.spring5.mvc.rest.mapper;
 
+import com.spring5.mvc.rest.api.v1.mapper.CategoryMapper;
 import com.spring5.mvc.rest.domain.Category;
-import com.spring5.mvc.rest.model.CategoryDTO;
+import com.spring5.mvc.rest.api.v1.model.CategoryDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

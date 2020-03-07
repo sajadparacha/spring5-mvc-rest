@@ -1,12 +1,13 @@
 package com.spring5.mvc.rest.services;
 
-import com.spring5.mvc.rest.mapper.CategoryMapper;
-import com.spring5.mvc.rest.model.CategoryDTO;
+import com.spring5.mvc.rest.api.v1.mapper.CategoryMapper;
+import com.spring5.mvc.rest.api.v1.model.CategoryDTO;
 import com.spring5.mvc.rest.repositories.CategoryRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
+@Service
 public class CategoryServiceImpl implements CategoryService{
     CategoryRepository categoryRepository;
 
