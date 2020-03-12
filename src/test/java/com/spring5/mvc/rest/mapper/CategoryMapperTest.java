@@ -33,7 +33,7 @@ class CategoryMapperTest {
     void categoryDTOtoCategory() {
         CategoryDTO categoryDTO=new CategoryDTO();
         categoryDTO.setId(ID);
-        categoryDTO.setName(NAME);
+            categoryDTO.setName(NAME);
 
         Category category= CategoryMapper.INSTANCE.categoryDTOtoCategory(categoryDTO);
 
