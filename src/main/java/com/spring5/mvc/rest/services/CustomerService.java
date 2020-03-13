@@ -1,6 +1,7 @@
 package com.spring5.mvc.rest.services;
 
 import com.spring5.mvc.rest.api.v1.model.CustomerDTO;
+import com.spring5.mvc.rest.domain.Customer;
 
 import java.util.List;
 
@@ -10,4 +11,6 @@ public interface CustomerService {
     public CustomerDTO getCustomerByFirstName(String name);
 
     public CustomerDTO getCustomerById(Long id);
+
+    public CustomerDTO saveCustomer(CustomerDTO customerDTO);
 }

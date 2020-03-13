@@ -8,9 +8,11 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 
 class CustomerDTOMapperTest {
+    public static final String FIRST_NAME = "Sajjad";
     CustomerMapper customerMapper;
     com.spring5.mvc.rest.domain.Customer customer;
-    CustomerDTO customer2;
+    CustomerDTO customerDTO;
+
     @BeforeEach
     void setUp() {
 
@@ -20,25 +22,25 @@ class CustomerDTOMapperTest {
     @Test
     void customerToCustomerDTO() {
         //Given
-        customer2 =new CustomerDTO();
-        customer2.setFirstName("Sajjad");
-        customer2.setLastName("Paracha");
-        customer2.setId(1L);
-        customer2.setCustomerURL("/customer/"+1L);
+        customerDTO =new CustomerDTO();
+        customerDTO.setFirstName(FIRST_NAME);
+        customerDTO.setLastName("Paracha");
+        customerDTO.setId(1L);
+        customerDTO.setCustomerURL("/customer/"+1L);
         //when(CustomerMapper.INSTANCE.customerDTOToCustomer(any())).thenReturn(customer);
         //When
-        com.spring5.mvc.rest.domain.Customer customer1 = CustomerMapper.INSTANCE.customerDTOToCustomer(customer2);
+        com.spring5.mvc.rest.domain.Customer customer1 = CustomerMapper.INSTANCE.customerDTOToCustomer(customerDTO);
 
         //Then
         assertNotNull(customer1);
-        assertEquals(customer1.getFirstName(),"Sajjad");
+        assertEquals(customer1.getFirstName(), FIRST_NAME);
     }
 
     @Test
     void customerDTOToCustomer() {
         //Given
         customer =new com.spring5.mvc.rest.domain.Customer();
-        customer.setFirstName("Sajjad");
+        customer.setFirstName(FIRST_NAME);
         customer.setLastName("Paracha");
         customer.setId(1L);
         customer.setCustomerURL("/customer/"+1L);
@@ -48,6 +50,6 @@ class CustomerDTOMapperTest {
 
         //Then
         assertNotNull(customer1);
-        assertEquals(customer1.getFirstName(),"Sajjad");
+        assertEquals(customer1.getFirstName(), FIRST_NAME);
     }
 }
