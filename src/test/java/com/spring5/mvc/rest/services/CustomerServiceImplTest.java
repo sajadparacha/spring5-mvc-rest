@@ -20,6 +20,8 @@ import static org.mockito.Mockito.when;
 
 class CustomerServiceImplTest {
     public static final String FIRST_NAME = "Sajjad";
+    public static final long CUSTOMER_ID = 1L;
+    public static final String LAST_NAME = "Paracha";
     @Mock
     CustomerRepository customerRepository;
     @Mock
@@ -36,12 +38,12 @@ class CustomerServiceImplTest {
         //Given
         com.spring5.mvc.rest.domain.Customer customer =new com.spring5.mvc.rest.domain.Customer();
         customer.setFirstName("Sajjad");
-        customer.setLastName("Paracha");
-        customer.setId(1L);
-        customer.setCustomerURL("/customer/"+1L);
+        customer.setLastName(LAST_NAME);
+        customer.setId(CUSTOMER_ID);
+        customer.setCustomerURL("/customer/"+ CUSTOMER_ID);
         com.spring5.mvc.rest.domain.Customer customer1 =new com.spring5.mvc.rest.domain.Customer();
         customer1.setFirstName("Waqar");
-        customer1.setLastName("Paracha");
+        customer1.setLastName(LAST_NAME);
         customer1.setId(2L);
         customer1.setCustomerURL("/customer/"+2L);
 
@@ -69,8 +71,8 @@ class CustomerServiceImplTest {
         //Given
         Customer customer =new Customer();
         customer.setFirstName(FIRST_NAME);
-        customer.setLastName("Paracha");
-        customer.setId(1L);
+        customer.setLastName(LAST_NAME);
+        customer.setId(CUSTOMER_ID);
 //        Optional<Customer> optionalCustomer=Optional.of(customer);
         when(customerRepository.findByFirstName(any())).thenReturn(customer);
         //When
@@ -87,12 +89,12 @@ class CustomerServiceImplTest {
         //Given
         Customer customer =new Customer();
         customer.setFirstName(FIRST_NAME);
-        customer.setLastName("Paracha");
-        customer.setId(1L);
+        customer.setLastName(LAST_NAME);
+        customer.setId(CUSTOMER_ID);
         Optional<Customer> optionalCustomer=Optional.of(customer);
         when(customerRepository.findById(any())).thenReturn(optionalCustomer);
         //When
-        CustomerDTO customerDTO=customerService.getCustomerById(1L);
+        CustomerDTO customerDTO=customerService.getCustomerById(CUSTOMER_ID);
         //Then
         assertNotNull(customerDTO);
         assertEquals(customerDTO.getFirstName(),FIRST_NAME);
@@ -104,18 +106,38 @@ class CustomerServiceImplTest {
         //Given
         Customer customer =new Customer();
         customer.setFirstName(FIRST_NAME);
-        customer.setLastName("Paracha");
-        customer.setId(1L);
+        customer.setLastName(LAST_NAME);
+        customer.setId(CUSTOMER_ID);
 
         CustomerDTO customerDTO1 =new CustomerDTO();
         customerDTO1.setFirstName(FIRST_NAME);
-        customerDTO1.setLastName("Paracha");
-        customerDTO1.setId(1L);
+        customerDTO1.setLastName(LAST_NAME);
+        customerDTO1.setId(CUSTOMER_ID);
 
         when(customerRepository.save(any())).thenReturn(customer);
 
         //When
         CustomerDTO customerDTO= customerService.saveCustomer(customerDTO1);
+        //Then
+        assertNotNull(customerDTO);
+        assertEquals(customerDTO.getFirstName(),FIRST_NAME);
+    }
+
+    @Test
+    void updateCustomer() {
+        //Given
+        Customer customer =new Customer();
+        customer.setFirstName(FIRST_NAME);
+        customer.setLastName(LAST_NAME);
+        customer.setId(CUSTOMER_ID);
+        CustomerDTO customerDTO1 =new CustomerDTO();
+        customerDTO1.setFirstName(FIRST_NAME);
+        customerDTO1.setLastName(LAST_NAME);
+        customerDTO1.setId(CUSTOMER_ID);
+        when(customerRepository.save(any())).thenReturn(customer);
+
+        //When
+        CustomerDTO customerDTO= customerService.updateCustomer(CUSTOMER_ID,customerDTO1);
         //Then
         assertNotNull(customerDTO);
         assertEquals(customerDTO.getFirstName(),FIRST_NAME);

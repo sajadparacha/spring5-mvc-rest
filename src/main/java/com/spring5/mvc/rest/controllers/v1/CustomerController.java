@@ -20,7 +20,7 @@ public class CustomerController {
     public ResponseEntity<CustomerListDTO> getAllCustomers(){
 //        List<CustomerDTO> customers= customerService.getAllCustomers();
         /**
-         * If we pass a list like above lin ethe json will be off below format , not mentioning the name of the list whoch will become confusing
+         * If we pass a list like above line the json will be off below format , not mentioning the name of the list whoch will become confusing
          * [
          *     {
          *         "id": 1,
@@ -89,6 +89,10 @@ public class CustomerController {
 
     @PostMapping
     public ResponseEntity<CustomerDTO> saveCustomer(@RequestBody CustomerDTO customerDTO){
-        return new ResponseEntity<CustomerDTO>(customerService.saveCustomer(customerDTO),HttpStatus.OK);
+        return new ResponseEntity<CustomerDTO>(customerService.saveCustomer(customerDTO),HttpStatus.CREATED);
+    }
+    @PutMapping("{id}")
+    public ResponseEntity<CustomerDTO> updateCustomer(@PathVariable Long id,@RequestBody CustomerDTO customerDTO){
+        return new ResponseEntity<CustomerDTO>(customerService.updateCustomer(id,customerDTO),HttpStatus.OK);
     }
 }
