@@ -80,7 +80,7 @@ public class CustomerController {
                         customerService.getCustomerByFirstName(name), HttpStatus.OK);
     }
 
-    @GetMapping("/id/{id}")
+    @GetMapping("id/{id}")
     public ResponseEntity<CustomerDTO> getCustomerById(@PathVariable Long id){
         return
                 new ResponseEntity<CustomerDTO>(
@@ -94,5 +94,10 @@ public class CustomerController {
     @PutMapping("{id}")
     public ResponseEntity<CustomerDTO> updateCustomer(@PathVariable Long id,@RequestBody CustomerDTO customerDTO){
         return new ResponseEntity<CustomerDTO>(customerService.updateCustomer(id,customerDTO),HttpStatus.OK);
+    }
+    @PatchMapping({"{id}"})
+    public ResponseEntity<CustomerDTO> patchCustomer(@PathVariable Long id, @RequestBody CustomerDTO customerDTO){
+        return new ResponseEntity<CustomerDTO>(customerService.patchCustomer(id, customerDTO),
+                HttpStatus.OK);
     }
 }
