@@ -2,6 +2,8 @@ package com.spring5.mvc.rest.services;
 
 import com.spring5.mvc.rest.api.v1.mapper.CategoryMapper;
 import com.spring5.mvc.rest.api.v1.model.CategoryDTO;
+import com.spring5.mvc.rest.domain.Category;
+import com.spring5.mvc.rest.exceptions.ResourceNotFoundException;
 import com.spring5.mvc.rest.repositories.CategoryRepository;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +30,10 @@ public class CategoryServiceImpl implements CategoryService{
     @Override
     public CategoryDTO getCategoryByName(String name) {
 
-        return categoryMapper.categoryToCategoryDto(categoryRepository.findByName(name));
+        Category categoryByName = categoryRepository.findByName(name);
+        if(categoryByName!=null)
+        return categoryMapper.categoryToCategoryDto(categoryByName);
+        else
+            throw new ResourceNotFoundException();
     }
 }

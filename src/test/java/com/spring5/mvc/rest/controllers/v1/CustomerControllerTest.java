@@ -2,6 +2,7 @@ package com.spring5.mvc.rest.controllers.v1;
 
 
 import com.spring5.mvc.rest.api.v1.model.CustomerDTO;
+import com.spring5.mvc.rest.exceptions.ResourceNotFoundException;
 import com.spring5.mvc.rest.services.CustomerService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -35,7 +36,7 @@ class CustomerControllerTest extends AbstractRestControllerTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
-        this.mockMvc = MockMvcBuilders.standaloneSetup(customerController).build();
+        this.mockMvc = MockMvcBuilders.standaloneSetup(customerController).setControllerAdvice(new RestResponsEntityExceptionHandler()).build();
     }
 
     @Test
@@ -128,9 +129,6 @@ class CustomerControllerTest extends AbstractRestControllerTest {
                 .andExpect(jsonPath("$.customer_url", equalTo("/api/v1/customers/1")));
     }
 
-    @Test
-    void getCustomerByName() {
-    }
 
 
     @Test
@@ -144,7 +142,7 @@ class CustomerControllerTest extends AbstractRestControllerTest {
         CustomerDTO returnDTO = new CustomerDTO();
         returnDTO.setFirstName(customer.getFirstName());
         returnDTO.setLastName(customer.getLastName());
-        returnDTO.setCustomerURL("/api/v1/customers/1");
+        returnDTO.setCustomerURL(getCustomerURL() + "/1");
 
         when(customerService.updateCustomer(ID,customer)).thenReturn(returnDTO);
         System.out.println(asJsonString(customer));
@@ -157,6 +155,11 @@ class CustomerControllerTest extends AbstractRestControllerTest {
                 .andExpect(jsonPath("$.customer_url", equalTo("/api/v1/customers/1")));
 
     }
+
+    private String getCustomerURL() {
+        return "/api/v1/customers";
+    }
+
     @Test
     public void testPatchCustomer() throws Exception {
 
@@ -178,5 +181,13 @@ class CustomerControllerTest extends AbstractRestControllerTest {
                 .andExpect(jsonPath("$.firstName", equalTo(NAME)))
                 .andExpect(jsonPath("$.lastName", equalTo(LAST_NAME)))
                 .andExpect(jsonPath("$.customer_url", equalTo("/api/v1/customers/1")));
+    }
+    @Test
+    void testGetCustomerByNameNoFound() throws Exception {
+        when(customerService.getCustomerByFirstName(anyString())).thenThrow(ResourceNotFoundException.class);
+        mockMvc.perform(get("/api/v1/customers/"+NAME)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
+
     }
 }

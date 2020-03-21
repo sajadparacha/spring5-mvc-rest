@@ -3,6 +3,7 @@ package com.spring5.mvc.rest.services;
 import com.spring5.mvc.rest.api.v1.mapper.CustomerMapper;
 import com.spring5.mvc.rest.api.v1.model.CustomerDTO;
 import com.spring5.mvc.rest.domain.Customer;
+import com.spring5.mvc.rest.exceptions.ResourceNotFoundException;
 import com.spring5.mvc.rest.repositories.CustomerRepository;
 import org.springframework.stereotype.Service;
 
@@ -43,8 +44,10 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public CustomerDTO getCustomerByFirstName(String name) {
         Customer customer = customerRepository.findByFirstName(name);
+        if(customer!=null)
             return  customerMapper.customerToCustomerDTO(customer);
-
+        else
+            throw new ResourceNotFoundException();
     }
 
     @Override
@@ -54,7 +57,7 @@ public class CustomerServiceImpl implements CustomerService {
         if(customer.isPresent()){
         return  customerMapper.customerToCustomerDTO(customer.get());
         }
-        return null;
+        throw new ResourceNotFoundException();
 
     }
 
@@ -70,7 +73,7 @@ public class CustomerServiceImpl implements CustomerService {
             return customerMapper.customerToCustomerDTO(customerSaved);
         }
         else
-            return null;
+            throw new ResourceNotFoundException("Customer Was Not Saved/Updated Successfully");
     }
 
     @Override
@@ -98,6 +101,6 @@ public class CustomerServiceImpl implements CustomerService {
 
             return returnDto;
 
-        }).orElseThrow(RuntimeException::new); //todo implement better exception handling;
+        }).orElseThrow(ResourceNotFoundException::new);
     }
 }
