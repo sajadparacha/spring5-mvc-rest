@@ -6,11 +6,9 @@ import com.spring5.mvc.rest.services.CategoryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
 @RequestMapping("/api/v1/categories/")
 public class CategoryController {
     CategoryService categoryService;
@@ -20,16 +18,19 @@ public class CategoryController {
     }
 
     @GetMapping
-    public ResponseEntity<CatorgoryListDTO> getallCatetories(){
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
+    public CatorgoryListDTO getallCatetories(){
         //We have to create CatorgoryListDTO here as we want to return back the JSON collection object
-        return new ResponseEntity<CatorgoryListDTO>(
-                new CatorgoryListDTO(categoryService.getAllCategories()), HttpStatus.OK);
+        return
+                new CatorgoryListDTO(categoryService.getAllCategories());
     }
 
     @GetMapping("{name}")
-    public ResponseEntity<CategoryDTO> getCategoryByName(@PathVariable String name){
-        return new ResponseEntity<CategoryDTO>(
-                categoryService.getCategoryByName(name), HttpStatus.OK
-        );
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
+    public CategoryDTO getCategoryByName(@PathVariable String name){
+        return
+                categoryService.getCategoryByName(name);
     }
 }

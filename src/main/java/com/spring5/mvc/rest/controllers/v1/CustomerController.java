@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
 @RequestMapping("/api/v1/customers/")
 public class CustomerController {
     CustomerService customerService;
@@ -17,7 +17,9 @@ public class CustomerController {
         this.customerService = customerService;
     }
     @GetMapping
-    public ResponseEntity<CustomerListDTO> getAllCustomers(){
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
+    public CustomerListDTO getAllCustomers(){
 //        List<CustomerDTO> customers= customerService.getAllCustomers();
         /**
          * If we pass a list like above line the json will be off below format , not mentioning the name of the list whoch will become confusing
@@ -69,22 +71,26 @@ public class CustomerController {
          * }
          */
         return
-                new ResponseEntity<CustomerListDTO>(
-                        new CustomerListDTO(customerService.getAllCustomers()), HttpStatus.OK);
+
+                        new CustomerListDTO(customerService.getAllCustomers());
     }
 
     @GetMapping("{name}")
-    public ResponseEntity<CustomerDTO> getCustomerByName(@PathVariable String name){
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
+    public CustomerDTO getCustomerByName(@PathVariable String name){
         return
-                new ResponseEntity<CustomerDTO>(
-                        customerService.getCustomerByFirstName(name), HttpStatus.OK);
+
+                        customerService.getCustomerByFirstName(name);
     }
 
     @GetMapping("id/{id}")
-    public ResponseEntity<CustomerDTO> getCustomerById(@PathVariable Long id){
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
+    public CustomerDTO getCustomerById(@PathVariable Long id){
         return
-                new ResponseEntity<CustomerDTO>(
-                        customerService.getCustomerById(id), HttpStatus.OK);
+
+                        customerService.getCustomerById(id);
     }
 
     @PostMapping

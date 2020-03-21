@@ -20,7 +20,8 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 class CustomerControllerTest extends AbstractRestControllerTest {
     public static final String NAME = "Sajjad";
     public static final String LAST_NAME = "Paracha";
@@ -183,7 +184,7 @@ class CustomerControllerTest extends AbstractRestControllerTest {
                 .andExpect(jsonPath("$.customer_url", equalTo("/api/v1/customers/1")));
     }
     @Test
-    void testGetCustomerByNameNoFound() throws Exception {
+    void testGetCustomerByNameNotFound() throws Exception {
         when(customerService.getCustomerByFirstName(anyString())).thenThrow(ResourceNotFoundException.class);
         mockMvc.perform(get("/api/v1/customers/"+NAME)
                 .contentType(MediaType.APPLICATION_JSON))
