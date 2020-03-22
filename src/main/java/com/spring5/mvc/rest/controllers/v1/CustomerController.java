@@ -3,6 +3,7 @@ package com.spring5.mvc.rest.controllers.v1;
 import com.spring5.mvc.rest.api.v1.model.CustomerDTO;
 import com.spring5.mvc.rest.api.v1.model.CustomerListDTO;
 import com.spring5.mvc.rest.services.CustomerService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -19,6 +20,7 @@ public class CustomerController {
     @GetMapping
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
+    @ApiOperation(value = "This will get us a list of all Customers",notes = "These are some notes about this API")
     public CustomerListDTO getAllCustomers(){
 //        List<CustomerDTO> customers= customerService.getAllCustomers();
         /**
