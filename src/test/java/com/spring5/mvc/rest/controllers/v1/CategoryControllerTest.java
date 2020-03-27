@@ -3,6 +3,7 @@ package com.spring5.mvc.rest.controllers.v1;
 import com.spring5.mvc.rest.api.v1.model.CategoryDTO;
 import com.spring5.mvc.rest.exceptions.ResourceNotFoundException;
 import com.spring5.mvc.rest.services.CategoryService;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -10,6 +11,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.MockitoSession;
 import org.springframework.http.MediaType;
+
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -62,6 +64,7 @@ class CategoryControllerTest {
         when(categoryService.getAllCategories()).thenReturn(categories);
 
         mockMvc.perform(get("/api/v1/categories/")
+                .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.categories", hasSize(2)));
@@ -76,7 +79,8 @@ class CategoryControllerTest {
         when(categoryService.getCategoryByName(anyString())).thenReturn(category1);
 
         mockMvc.perform(get("/api/v1/categories/Jim")
-                .contentType(MediaType.APPLICATION_JSON))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name", equalTo(NAME)));
     }
