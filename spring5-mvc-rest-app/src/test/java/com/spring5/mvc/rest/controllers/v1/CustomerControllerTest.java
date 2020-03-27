@@ -133,8 +133,8 @@ class CustomerControllerTest extends AbstractRestControllerTest {
                 .accept(MediaType.APPLICATION_JSON)
                 .content(asJsonString(customer)))
                 .andExpect(status().isCreated())
-//                .andExpect(jsonPath("$.firstName", equalTo(NAME)))
-//                .andExpect(jsonPath("$.customerURL", equalTo("/api/v1/customers/1")))
+                .andExpect(jsonPath("$.firstName", equalTo(NAME)))
+                .andExpect(jsonPath("$.customerURL", equalTo("/api/v1/customers/1")))
                ;
     }
 
@@ -162,8 +162,8 @@ class CustomerControllerTest extends AbstractRestControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(asJsonString(customer)))
                 .andExpect(status().isOk())
-//                .andExpect(jsonPath("$.firstName", equalTo(NAME)))
-//                .andExpect(jsonPath("$.customerURL", equalTo("/api/v1/customers/1")))
+                .andExpect(jsonPath("$.firstName", equalTo(NAME)))
+                .andExpect(jsonPath("$.customerURL", equalTo("/api/v1/customers/1")))
         ;
 
     }
