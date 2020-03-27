@@ -7,11 +7,9 @@ workflows:
   maven_test:
     jobs:
       - maven/test # checkout, build, test, and upload test results
- Java Maven CircleCI 2.0 configuration file
-
- Check https://circleci.com/docs/2.0/language-java/ for more details
-
-
+# Java Maven CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-java/ for more details
 #version: 2
 #jobs:
 #  build:
